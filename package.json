@@ -1,0 +1,26 @@
+{
+  "name": "arrays.js",
+  "version": "0.0.0",
+  "description": "Pure-JS implementation of Typed Arrays",
+
+  "homepage": "http://github.com/stephank/node-arrays",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/stephank/node-arrays.git"
+  },
+  "author": {
+    "name": "Stéphan Kochen",
+    "email": "stephan@kochen.nl",
+    "url": "http://stephan.kochen.nl/"
+  },
+
+  "engines": {
+    "node": ">=0.7.7"
+  },
+
+  "scripts": {
+    "test": "node ./test/harness.js"
+  },
+
+  "main": "./index.js"
+}
