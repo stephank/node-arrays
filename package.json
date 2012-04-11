@@ -18,7 +18,7 @@
     "node": ">=0.7.7"
   },
   "devDependencies": {
-    "bench": "*"
+    "ben": "*"
   },
 
   "scripts": {
