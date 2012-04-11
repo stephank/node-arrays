@@ -27,11 +27,16 @@ Handle<Value> MakeFastBuffer(const Arguments& args) {
   Local<Object> fast_buffer = args[0]->ToObject();
   char* data = Buffer::Data(args[1]->ToObject());
   uint32_t offset = args[2]->Uint32Value();
-  Local<Value> type_arg = args[3];
-  uint32_t length = args[4]->Uint32Value();
-
   enum ExternalArrayType type = kExternalUnsignedByteArray;
-  if (!type_arg->IsUndefined()) {
+  uint32_t length;
+
+  if (args[4]->IsUndefined()) {
+    length = args[3]->Uint32Value();
+  }
+  else {
+    Local<Value> type_arg = args[3];
+    length = args[4]->Uint32Value();
+
     size_t type_size = 1;
     if (type_arg->StrictEquals(int8_symbol)) {
       type = kExternalByteArray;
