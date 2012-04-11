@@ -17,6 +17,9 @@
   "engines": {
     "node": ">=0.7.7"
   },
+  "devDependencies": {
+    "bench": "*"
+  },
 
   "scripts": {
     "test": "node ./test/harness.js"
