@@ -329,4 +329,7 @@ process.stdout.write('\n\n');
 eval(readTestScript('data-view-test.js'));
 process.stdout.write('\n\n');
 
+eval(readTestScript('typed-array-copy.js'));
+process.stdout.write('\n\n');
+
 process.exit(exitStatus);

@@ -192,16 +192,37 @@ TypedArray.prototype.set = function(source, offset) {
     throw new RangeError("Offset / length out of range.");
   }
 
-  // FIXME: Handle different kinds of TypedArrays, backed by the same
-  // ArrayBuffer? Even Chrome seems to handle this incorrectly.
+  // Same type, so we can copy data right over. Node's Buffer#copy ensures
+  // that overlapping regions are copied correctly.
   if (source instanceof this.constructor) {
     source.nodeBuffer.copy(this.nodeBuffer, offset * this.typeSize);
+    return;
   }
-  else {
-    // Assume object is an Array.
-    for (var i = 0; i < length; i++) {
-      this[offset + i] = source[i];
+
+  // We can't do a straight copy, because types differ.
+  if (source instanceof TypedArray) {
+    // Manually check if the regions overlap.
+    var srcBuf = source.nodeBuffer;
+    var dstBuf = this.nodeBuffer;
+    if (srcBuf.parent === dstBuf.parent) {
+      var srcStart = srcBuf.offset;
+      var srcEnd   = srcStart + srcBuf.length;
+      var dstStart = dstBuf.offset + offset * this.typeSize;
+      var dstEnd   = dstStart + length * this.typeSize;
+      if (!(srcStart >= dstEnd || srcEnd <= dstStart)) {
+        // They do, continue with a temporary copy of the values.
+        var tmp = new Array(source.length);
+        for (var i = 0; i < length; i++) {
+          tmp[i] = source[i];
+        }
+        source = tmp;
+      }
     }
+  }
+
+  // Assume source is an Array.
+  for (var i = 0; i < length; i++) {
+    this[offset + i] = source[i];
   }
 };
 
