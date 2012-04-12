@@ -66,7 +66,7 @@ function ArrayBuffer(subject, begin, end) {
   }
 
   // Buffer constructor
-  else if (subject instanceof Buffer) {
+  else if (Buffer.isBuffer(subject)) {
     this.nodeBuffer = subject;
     this.byteLength = subject.length;
   }
@@ -102,7 +102,7 @@ function ArrayBufferView() {
 // if the constructor call was indeed of that kind, and sets attributes if so.
 function makeViewFromBuffer(view, args, typeSize) {
   var buffer = args[0];
-  if (buffer instanceof Buffer) {
+  if (Buffer.isBuffer(buffer)) {
     buffer = new ArrayBuffer(buffer);
   }
   else if (!(buffer instanceof ArrayBuffer)) {
