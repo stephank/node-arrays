@@ -318,6 +318,20 @@ function assertMsg(assertion, msg) {
     }
 }
 
+function assertEq(prefix, expected, val) {
+  if (expected != val) {
+    var str = prefix + ': expected ' + expected + ', got ' + val;
+    throw str;
+  }
+}
+
+function assert(prefix, expected) {
+  if (!expected) {
+    var str = prefix + ': expected value / true';
+    throw str;
+  }
+}
+
 
 function readTestScript(filename) {
   return fs.readFileSync(path.join(__dirname, filename), 'utf-8');
@@ -327,6 +341,9 @@ eval(readTestScript('array-unit-tests.js'));
 process.stdout.write('\n\n');
 
 eval(readTestScript('data-view-test.js'));
+process.stdout.write('\n\n');
+
+eval(readTestScript('node-tests.js'));
 process.stdout.write('\n\n');
 
 eval(readTestScript('typed-array-copy.js'));

@@ -24,20 +24,6 @@ function fail(str) {
   testFailed(exc);
 }
 
-function assertEq(prefix, expected, val) {
-  if (expected != val) {
-    var str = prefix + ': expected ' + expected + ', got ' + val;
-    throw str;
-  }
-}
-
-function assert(prefix, expected) {
-  if (!expected) {
-    var str = prefix + ': expected value / true';
-    throw str;
-  }
-}
-
 function printSummary() {
   if (allPassed) {
     debug("Test passed.");
